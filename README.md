@@ -2,7 +2,6 @@
 
 > Click :star:if you like the project. Pull Request are highly appreciated. Follow me [@kansiris](https://twitter.com/kansiris87) for technical updates.
 
-
 ### Table of Contents
 
 | No. | Questions |
@@ -161,12 +160,25 @@
 |152| [What are the differences of various versions of Angular?](#what-are-the-differences-of-various-versions-of-angular)|
 |153| [What are the security principles in angular?](#what-are-the-security-principles-in-angular)|
 |154| [What is the reason to deprecate Web Tracing Framework?](#what-is-the-reason-to-deprecate-web-tracing-framework)|
-|155| [](#)|
-|156| [](#)|
-|157| [](#)|
-|158| [](#)|
-|159| [](#)|
-|160| [](#)|
+|155| [What is the reason to deprecate web worker packages?](#what-is-the-reason-to-deprecate-web-worker-packages)|
+|156| [How do you find angular CLI version?](#how-do-you-find-angular-cli-version)|
+|157| [What is the browser support for Angular?](#what-is-the-browser-support-for-angular)|
+|158| [What is schematic](#what-is-schematic)|
+|159| [What is rule in Schematics?](#what-is-rule-in-schematics)|
+|160| [What is Schematics CLI?](#what-is-schematics-cli)|
+|161| [What are the best practices for security in angular?](#what-are-the-best-practices-for-security-in-angular)|
+|162| [What is Angular security model for preventing XSS attacks?](#what-is-angular-security-model-for-preventing-xss-attacks)|
+|163| [What is the role of template compiler for prevention of XSS attacks?](#what-is-the-role-of-template-compiler-for-prevention-of-xss-attacks)|
+|164| [What are the various security contexts in Angular?](#what-are-the-various-security-contexts-in-Angular)|
+|165| [What is Sanitization? Is angular supports it?](#what-is-sanitization?Is-angular-supports-it)|
+|166| [What is the purpose of innerHTML?](#what-is-the-purpose-of-innerhtml)|
+|167| [What is the difference between interpolated content and innerHTML?](#what-is-the-difference-between-interpolated-content-and-innerhtml)|
+|168| [How do you prevent automatic sanitization?](#how-do-you-prevent-automatic-sanitization)|
+|169| [Is safe to use direct DOM API methods in terms of security?](#is-safe-to-use-direct-dom-api-methods-in-terms-of-security)|
+|170| [What is DOM sanitizer?](#what-is-dom-sanitizer)|
+|171| [How do you support server side XSS protection in Angular application?](#how-do-you-support-server-side-xss-protection-in-angular-application)
+|172| [Is angular prevents http level vulnerabilities?](#is-angular-prevents-http-level-vulnerabilities)|
+|173| [What are Http Interceptors?](#what-are-http-interceptors)|
 
 1. ### What is Angular Framework?
 
@@ -201,7 +213,7 @@
         return "Hello, " + person;
     }
 
-    let user = "Kansiris";
+    let user = "Sudheer";
 
     document.body.innerHTML = greeter(user);
     ```
@@ -2366,10 +2378,10 @@
      2. NgZone.run(callback): It evaluate the callback function inside the Angular zone.
      3. ChangeDetectorRef.detectChanges(): It detects only the components and it's children.
 
-    **[⬆ Back to Top](#table-of-contents)**
+     **[⬆ Back to Top](#table-of-contents)**
 
 152. ### What are the differences of various versions of Angular?
-    There are different versions of Angular framework. Let's see the features of all the various versions,
+     There are different versions of Angular framework. Let's see the features of all the various versions,
 
      1. Angular 1
         • Angular 1 (AngularJS) is the first angular framework released in the year 2010.
@@ -2407,7 +2419,7 @@
         • CLI Prompts capability provide an ability to ask questions to the user before they run. It is like interactive dialog between the           user and the CLI
         • With the improved CLI Prompts capability, it helps developers to make the decision. New ng commands ask users for routing and CSS           styles types(SCSS) and ng add @angular/material asks for themes and gestures or animations.
 
-     **[⬆ Back to Top](#table-of-contents)**
+      **[⬆ Back to Top](#table-of-contents)**
 
 153. ### What are the security principles in angular?
 		1.	You should avoid direct use of the DOM APIs.
@@ -2424,13 +2436,309 @@
 
      **[⬆ Back to Top](#table-of-contents)**
 
-155. ### ?
-156. ### ?
-157. ### ?
-158. ### ?
-159. ### ?
-160. ### ?
+155. ### What is the reason to deprecate web worker packages?
+     Both @angular/platform-webworker and @angular/platform-webworker-dynamic are officially deprecated, the Angular team realized it's not good practice to run the Angular application on Web worker
+     **[⬆ Back to Top](#table-of-contents)**
 
+156. ### How do you find angular CLI version?
+     Angular CLI provides it's installed version using below different ways using ng command
+     ```bash
+     ng v
+     ng version
+     ng -v
+     ng --version
+     ```
+     and the output would be as below,
+     ```bash
+     Angular CLI: 1.6.3
+     Node: 8.11.3
+     OS: darwin x64
+     Angular:
+     ...
+     ```
 
+     **[⬆ Back to Top](#table-of-contents)**
 
+157. ### What is the browser support for Angular?
+     Angular supports most recent browsers which includes both desktop and mobile browsers.
 
+     | Browser | Version |
+     |---- | --------- |
+     | Chrome | latest |
+     | Firefox | latest |
+     | Edge | 2 most recent major versions |
+     | IE | 11, 10, 9 (Compatibility mode is not supported) |
+     | Safari | 2 most recent major versions |
+     | IE Mobile | 11 |
+     | iOS | 2 most recent major versions |
+     | Android | 7.0, 6.0, 5.0, 5.1, 4.4 |
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+158. ### What is schematic?
+     It's a scaffolding library that defines how to generate or transform a programming project by creating, modifying, refactoring, or moving files and code. It defines rules that operate on a virtual file system called a tree.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+159. ### What is rule in Schematics?
+
+     In schematics world, it's a function that operates on a file tree to create, delete, or modify files in a specific manner.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+160. ### What is Schematics CLI?
+     Schematics come with their own command-line tool known as Schematics CLI. It is used to install the schematics executable, which you can use to create a new schematics collection with an initial named schematic. The collection folder is a workspace for schematics. You can also use the schematics command to add a new schematic to an existing collection, or extend an existing schematic. You can install Schematic CLI globally as below,
+     ```bash
+     npm install -g @angular-devkit/schematics-cli
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+161. ### What are the best practices for security in angular?
+     Below are the best practices of security in angular,
+
+     1. Use the latest Angular library releases
+     2. Don't modify your copy of Angular
+     3. Avoid Angular APIs marked in the documentation as “Security Risk.”
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+162. ### What is Angular security model for preventing XSS attacks?
+     Angular treats all values as untrusted by default. i.e, Angular sanitizes and escapes untrusted values When a value is inserted into the DOM from a template, via property, attribute, style, class binding, or interpolation.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+163. ### What is the role of template compiler for prevention of XSS attacks?
+     The offline template compiler prevents vulnerabilities caused by template injection, and greatly improves application performance. So it is recommended to use offline template compiler in production deployments without dynamically generating any template.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+164. ### What are the various security contexts in Angular?
+     Angular defines the following security contexts for sanitization,
+     1. **HTML:** It is used when interpreting a value as HTML such as binding to innerHtml.
+     2. **Style:** It is used when binding CSS into the style property.
+     3. **URL:** It is used for URL properties such as <a href>.
+     4. **Resource URL:** It is a URL that will be loaded and executed as code such as <script src>.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+165. ### What is Sanitization? Is angular supports it?
+     **Sanitization** is the inspection of an untrusted value, turning it into a value that's safe to insert into the DOM. Yes, Angular suppports sanitization. It sanitizes untrusted values for HTML, styles, and URLs but sanitizing resource URLs isn't possible because they contain arbitrary code.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+166. ### What is the purpose of innerHTML?
+     The innerHtml is a property of HTML-Elements, which allows you to set it's html-content programatically. Let's display the below html code snippet in a <div> tag as below using innerHTML binding,
+     ```html
+     <div [innerHTML]="htmlSnippet"></div>
+     ```
+     and define the htmlSnippet property from any component
+     ```javascript
+     export class myComponent {
+       htmlSnippet: string = '<b>Hello World</b>, Angular';
+     }
+     ```
+     Unfortunately this property could cause Cross Site Scripting (XSS) security bugs when improperly handled.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+167. ### What is the difference between interpolated content and innerHTML?
+     The main difference between interpolated and innerHTML code is the behavior of code interpreted. Interpolated content is always escaped i.e,  HTML isn't interpreted and the browser displays angle brackets in the element's text content. Where as in innerHTML binding, the content is interpreted i.e, the browser will convert < and > characters as HTMLEntities. For example, the usage in template would be as below,
+     ```html
+     <p>Interpolated value:</p>
+     <div >{{htmlSnippet}}</div>
+     <p>Binding of innerHTML:</p>
+     <div [innerHTML]="htmlSnippet"></div>
+     ```
+     and the property defined in a component.
+     ```javascript
+     export class InnerHtmlBindingComponent {
+       htmlSnippet = 'Template <script>alert("XSS Attack")</script> <b>Code attached</b>';
+     }
+     ```
+     Even though innerHTML binding create a chance of XSS attack, Angular recognizes the value as unsafe and automatically sanitizes it.
+     **[⬆ Back to Top](#table-of-contents)**
+
+168. ### How do you prevent automatic sanitization?
+     Sometimes the applications genuinely need to include executable code such as displaying <iframe> from an URL. In this case, you need to prevent automatic sanitization in Angular by saying that you inspected a value, checked how it was generated, and made sure it will always be secure. Basically it involves 2 steps,
+     i. Inject DomSanitizer: You can inject DomSanitizer in component as parameter in constructor
+     ii. Mark the trusted value by calling some of the below methods
+
+     1. bypassSecurityTrustHtml
+     2. bypassSecurityTrustScript
+     3. bypassSecurityTrustStyle
+     4. bypassSecurityTrustUrl
+     5. bypassSecurityTrustResourceUrl
+
+     For example,The  usage of dagerous url to trusted url would be as below,
+     ```javascript
+     constructor(private sanitizer: DomSanitizer) {
+       this.dangerousUrl = 'javascript:alert("XSS attack")';
+       this.trustedUrl = sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+169. ### Is safe to use direct DOM API methods in terms of security?
+     No,the built-in browser DOM APIs or methods don't automatically protect you from security vulnerabilities. In this case it is recommended to use Angular templates instead of directly interacting with DOM. If it is unavoidable then use the built-in Angular sanitization functions.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+170. ### What is DOM sanitizer?
+     DomSanitizer is used to help preventing Cross Site Scripting Security bugs (XSS) by sanitizing values to be safe to use in the different DOM contexts.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+171. ### How do you support server side XSS protection in Angular application?
+     The server-side XSS protection is supported in an angular application by using a templating language that automatically escapes values to prevent XSS vulnerabilities on the server. But don't use a templating language to generate Angular templates on the server side which creates a high risk of introducing template-injection vulnerabilities.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+172. ### Is angular prevents http level vulnerabilities?
+     Angular has built-in support for preventing http level vulnerabilities such as as cross-site request forgery (CSRF or XSRF) and cross-site script inclusion (XSSI). Even though these vulnerabilities need to be mitigated on server-side, Angular provides helpers to make the integration easier on the client side.
+     1. HttpClient supports a token mechanism used to prevent XSRF attacks
+     2. HttpClient library recognizes the convention of prefixed JSON responses(which non-executable js code with ")]}',\n" characters) and automatically strips the string ")]}',\n" from all responses before further parsing
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+173. ### What are Http Interceptors?
+     Http Interceptors are part of @angular/common/http, which inspect and transform HTTP requests from your application to the server and vice-versa on HTTP responses. These interceptors can perform a variety of implicit tasks, from authentication to logging. The syntax of HttpInterceptor interface looks like as below,
+     ```javascript
+     interface HttpInterceptor {
+       intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
+     }
+     ```
+     You can use interceptors by declaring a service class that implements the intercept() method of the HttpInterceptor interface.
+     ```javascript
+     @Injectable()
+     export class MyInterceptor implements HttpInterceptor {
+         constructor() {}
+         intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+             ...
+         }
+     }
+     ```
+     After that you can use it in your module,
+     ```javascript
+     @NgModule({
+         ...
+         providers: [
+             {
+                 provide: HTTP_INTERCEPTORS,
+                 useClass: MyInterceptor,
+                 multi: true
+             }
+         ]
+         ...
+     })
+     export class AppModule {}
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+174. ### What are the applications of HTTP interceptors?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+175. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+176. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+177. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+178. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+179. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+180. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+181. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+182. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+183. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+184. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+185. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+186. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+187. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+188. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+189. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+190. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+191. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+192. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+193. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+194. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+195. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+196. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+197. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+198. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+199. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+200. ### ?
+
+     **[⬆ Back to Top](#table-of-contents)**
