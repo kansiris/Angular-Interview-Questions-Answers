@@ -535,6 +535,229 @@
 
 18. ### How is Dependency Hierarchy formed?
 
+Injector Tree
+The Angular creates the Injector, when the application root module (named as AppModule) is bootstrapped. This injector is called as root injector and acts as a parent to all other injectors. The root injector also gets its own copy of Providers. It gets it from the Providers is metadata of @NgModule of AppModule.
+The AppModule loads the AppComponent, which is the root component of our application. The AppComponent gets its own injector with a copy of Providers defined in Providers metadata of the AppComponent
+The Root Component acts as a parent to every component we create. Each of those components can contain child components creating a tree of components. The Injector is created for each of those component creating a tree of injector, which closely resembles the component tree. This is called a hierarchical pattern. The injectors also get their own copy of providers from the @component metadata.
+The injector is destroyed when the associated component is destroyed.
+Dependency Resolution
+The components ask for the dependencies to be injected in the constructor using the token.
+The injector attached to the component looks for a provider in the Providers collection using the token. If the provider is found, it is then instantiated and injected into the component
+What if the provider is not found?
+The injector passes the request to the injector of the parent component. If the provider is found, the request returns the instance of the Provider. If not found then the request continues until the request reaches the topmost injector in the injector chain.
+If it fails to find the service then the request returns the error “EXCEPTION: Error in Component class – inline template caused by No provider for Service!”
+Service Instance
+The Services are singletons within the scope of an injector. That is, there is at most one instance of a service in a given injector.
+When the injector gets a request for a particular service for the first time, it creates the new instance of the service. For all the subsequent request, it will return the already created instance. 
+Example of hierarchical dependency injection
+To understand the hierarchical dependency injection system let us build a simple application. The App has a shared service and 5 components. 2 Parent components & 3 Child Components.
+
+The App
+Shared Service
+Create a Shared Service shared.service.ts as shown below. The service just generates some random number when instantiated.
+
+import { Injectable } from '@angular/core';
+@Injectable()
+export class SharedService{
+    sharedValue:number;
+    constructor(){
+       console.log('Shared Service initialised')
+       this.sharedValue=Math.round(Math.random()*100);
+       console.log(this.sharedValue);
+    } 
+
+    public  getSharedValue() {
+        return this.sharedValue;               
+    }
+}
+
+Parent Component
+Let us add two-parent components,  Parent1Component & Parent2Component. Both the components are almost similar. Both read the SharedValue from SharedService and displays it in the template. The Parent1Component has two child components Child1Component & Child2Component, While Parent2Component has Child3Component.
+parent1.component.ts
+
+import { Component } from '@angular/core';
+import { SharedService} from './Shared.service';
+@Component({
+  selector: 'parent1-component',
+  templateUrl: './parent1.component.html',
+  providers :[SharedService]  
+})
+export class Parent1Component
+{
+   sharedValue;
+   constructor(private sharedService:SharedService){
+     this.sharedValue=sharedService.getSharedValue();
+     console.log('Parent-1 ' + this.sharedValue.toString());
+   }
+}
+
+parent1.component.html
+<div class="container">
+   <strong>Parent-1 </strong>     Value {{sharedValue}}
+   <child1-component></child1-component>
+   <child2-component></child2-component>
+</div>
+
+parent2.component.ts
+import { Component } from '@angular/core';
+import { SharedService} from './Shared.service';
+@Component({
+  selector: 'parent2-component',
+  templateUrl: './parent2.component.html',
+  providers :[SharedService]
+})
+export class Parent2Component
+{
+   sharedValue;
+   constructor(private sharedService:SharedService){
+     this.sharedValue=sharedService.getSharedValue();
+     console.log('Parent-2 ' + this.sharedValue.toString());
+   }
+}
+
+parent2.component.html
+<div class="container">
+    <strong>Parent-2</strong>     Value {{sharedValue}}
+    <child3-component></child3-component>
+</div>
+
+Child Components
+The child components also read from the SharedService and display the SharedValue in the template. We have three child components, which are very much similar.
+
+child1.component.ts
+import { Component } from '@angular/core';
+import { SharedService} from './Shared.service';
+@Component({
+  selector: 'child1-component',
+  templateUrl: './child1.component.html',
+  providers :[]
+})
+export class Child1Component
+{
+   sharedValue;
+   constructor(private sharedService:SharedService){
+     this.sharedValue=sharedService.getSharedValue();
+     console.log('Child-1 ' + this.sharedValue.toString());
+   }
+}
+
+child1.component.html
+<div class="container">
+    <strong>Child-1</strong>   Value {{sharedValue}}
+</div>
+
+child2.component.ts
+import { Component } from '@angular/core';
+import { SharedService} from './Shared.service';
+@Component({
+  selector: 'child2-component',
+  templateUrl: './child2.component.html',
+  providers :[]
+})
+export class Child2Component
+{
+   sharedValue;
+   constructor(private sharedService:SharedService){
+     this.sharedValue=sharedService.getSharedValue();
+     console.log('Child-2 ' + this.sharedValue.toString());
+   }
+}
+
+child2.component.html
+<div class="container">
+    <strong>Child-2</strong>    Value {{sharedValue}}
+</div>
+
+child3.component.ts
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms'
+import { SharedService } from './Shared.service';
+@Component({
+  selector: 'child3-component',
+  templateUrl: './child3.component.html',
+  providers :[]
+})
+export class Child3Component
+{
+   sharedValue;
+   constructor(private sharedService:SharedService){
+     this.sharedValue=sharedService.getSharedValue();
+     console.log('Child-3 ' + this.sharedValue.toString());
+   }
+}
+
+child3.component.html
+<div class="container">
+    <strong>Child-3</strong>   Value {{sharedValue}}
+</div>
+
+Root Component
+app.component.ts
+import { Component } from '@angular/core';
+import { SharedService } from './Shared.service';
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  providers :[]
+})
+export class AppComponent
+{}
+
+app.component.html
+<div class="container">
+    <strong>AppComponent </strong>
+    <p> This is the top most component </p>
+    <parent1-component></parent1-component>
+    <parent2-component></parent2-component>
+    </div>
+Root module
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
+import { Parent1Component } from './parent1.component';
+import { Parent2Component } from './parent2.component';
+import { Child1Component } from './child1.component';
+import { Child2Component } from './child2.component';
+import { Child3Component } from './child3.component';
+import { SharedService} from './Shared.service';
+@NgModule({
+  declarations: [
+    AppComponent,Parent1Component,Parent2Component, Child1Component,Child2Component,Child3Component
+  ],
+  imports: [
+    BrowserModule,
+    HttpModule,
+    FormsModule
+  ],
+  providers :[SharedService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+Injector Tree
+The following image illustrates how the component tree and injector tree of the above app look like.
+The Component tree starts with the root component (AppComponent in the image). Each component in the component tree gets its own injector. The injector is destroyed when the component is destroyed. The injector is also created for the root module when the app starts. 
+
+The Injector Tree
+How Dependency is Resolved
+What happens if the child1Component requests a Service. The injector attached to Child1Component looks for the provider in the Providers collection registered with the Child1Component.
+If it does not find the provider, it then passes the request to the injector instance of the parent1Component as shown by the dotted arrow in the image above. If the provider is found, the request is returned with the instance of the dependency else the request is passed on the injector of the AppComponent. This process continues until it reaches the top-level injector.
+Registering the Providers
+Where you register the provider for your service, determines the lifetime of the Services.
+Let us register our SharedService in both the parent components. Add the following code to the @Component metadata.
+
+providers :[SharedService]
+ 
+Both the Parent Components will get their own Instance of the SharedService. The Child1Component & Child2Component will share the instance of the Parent1Component, while Child3Component will share the instance from the Parent2Component.
+The output and the injection graph is as shown below.
+
+Angular 2 Child Components Share the Same Insance as thier Parent Components
+Angular Singleton Service
+You can create a Singleton Service by moving the Provider registration to the root injector i.e the root module (AppModule in the example).
+Remove the provider registration from all the components and add it to the Providers array in the AppModule
+Now the entire application will share the same instance of SharedService as shown below making the Service as Singleton
+
   **[⬆ Back to Top](#table-of-contents)**
 
 19. ### What is the purpose of async pipe?
