@@ -2,8 +2,6 @@
 
 > Click :star:if you like the project. Pull Request are highly appreciated. Follow me [@Kansiris87](https://twitter.com/kansiris87) for technical updates.
 
-
-
 ## Downloading PDF/Epub formats
 
 You can download the PDF and Epub version of this repository from the latest run on the [actions tab](https://github.com/kansiris/angular-interview-questions/actions).
@@ -18,12 +16,6 @@ You can download the PDF and Epub version of this repository from the latest run
         </a>
     </p>
 </div>
-
----
-
-## Downloading PDF/Epub formats
-
-You can download the PDF and Epub version of this repository from the latest run on the [actions tab](https://github.com/sudheerj/angular-interview-questions/actions).
 
 ---
 <p align="center">
