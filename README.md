@@ -7,6 +7,33 @@
 ## Downloading PDF/Epub formats
 
 You can download the PDF and Epub version of this repository from the latest run on the [actions tab](https://github.com/kansiris/angular-interview-questions/actions).
+---
+<div align="center">
+    <p>
+        <a href="https://www.youtube.com/channel/UCvx90EzrkwEFc3x65B4LVBQ">
+            25 Angular interview questions with answers video.
+            <div>
+                <img src="https://img.youtube.com/vi/-jeoyDJDsSM/0.jpg" width="150" height="100" alt="Angular">
+            </div>
+        </a>
+    </p>
+</div>
+
+---
+
+## Downloading PDF/Epub formats
+
+You can download the PDF and Epub version of this repository from the latest run on the [actions tab](https://github.com/sudheerj/angular-interview-questions/actions).
+
+---
+<p align="center">
+  <a href=http://www.kansiris.org/>
+    <img src=https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgea6TTbqo5HgPPGBxYumUI2t0nCi_M7OpImO84RTN-l2qzXW78---QLNzR0TkjzPjSaVPp8fThwDN2ujbZ1z5kKLl1NNAr8hD185Cmh0O1e9B5tP4dVduScspwEzr9cXVn_3CMOIfLbG8tdSCzuwSGCUVI3puJ-YWNy0c2F5CrnFm41WMQosLu9Z0p/s862/e3.jpg alt="ZTM Logo">
+  </a>
+  
+</p>
+
+---
 
 ### Table of Contents
 
@@ -285,8 +312,8 @@ You can download the PDF and Epub version of this repository from the latest run
 |271| [How do you get the current route?](#how-do-you-get-the-current-route)|
 |272| [What is Component Test Harnesses?](#what-is-component-test-harnesses)|
 |273| [What is the benefit of Automatic Inlining of Fonts?](#what-is-the-benefit-of-automatic-inlining-of-fonts)|
-|274| [](#)|
-|275| [](#)|
+|274| [What is content projection?](#what-is-content-projection)|
+|275| [What is ng-content and its purpose?](#what-is-ng-content-and-its-purpose)|
 |276| [](#)|
 
 1. ### What is Angular Framework?
@@ -604,17 +631,20 @@ You can download the PDF and Epub version of this repository from the latest run
   **[⬆ Back to Top](#table-of-contents)**
 
 15. ### What is the difference between constructor and ngOnInit?
-    TypeScript classes has a default method called constructor which is normally used for the initialization purpose. Whereas ngOnInit method is specific to Angular, especially used to define Angular bindings. Even though constructor getting called first, it is preferred to move all of your Angular bindings to ngOnInit method.
-    In order to use ngOnInit, you need to implement OnInit interface as below,
+    The **Constructor** is a default method of the class that is executed when the class is instantiated and ensures proper initialisation of fields in the class and its subclasses. Angular, or better Dependency Injector (DI), analyses the constructor parameters and when it creates a new instance by calling new MyClass() it tries to find providers that match the types of the constructor parameters, resolves them and passes them to the constructor.  
+    **ngOnInit** is a life cycle hook called by Angular to indicate that Angular is done creating the component.  
+    Mostly we use ngOnInit for all the initialization/declaration and avoid stuff to work in the constructor. The constructor should only be used to initialize class members but shouldn't do actual "work".
+    So you should use constructor() to setup Dependency Injection and not much else. ngOnInit() is better place to "start" - it's where/when components' bindings are resolved.
 
     ```typescript
     export class App implements OnInit{
-      constructor(){
+      constructor(private myService: MyService){
          //called first time before the ngOnInit()
       }
 
       ngOnInit(){
          //called after the constructor and called  after the first ngOnChanges()
+         //e.g. http call...
       }
     }
     ```
@@ -1380,7 +1410,7 @@ You can download the PDF and Epub version of this repository from the latest run
   **[⬆ Back to Top](#table-of-contents)**
 
 68. ### What are active router links?
-    RouterLinkActive is a directive that toggles css classes for active RouterLink bindings based on the current RouterState. i.e, the Router will add CSS classes when this link is active and and remove when the link is inactive. For example, you can add them to RouterLinks as below
+    RouterLinkActive is a directive that toggles css classes for active RouterLink bindings based on the current RouterState. i.e, The Router will add CSS classes when this link is active and remove when the link is inactive. For example, you can add them to RouterLinks as below.
 
     ```html
     <h1>Angular Router</h1>
@@ -2198,7 +2228,7 @@ You can download the PDF and Epub version of this repository from the latest run
    **[⬆ Back to Top](#table-of-contents)**
 
  121. ### What is a builder?
-      A builder function ia a function that uses the `Architect API` to perform a complex process such as "build" or "test". The builder code is defined in an npm package. For example, BrowserBuilder runs a webpack build for a browser target and KarmaBuilder starts the Karma server and runs a webpack build for unit tests.
+      A builder function is a function that uses the `Architect API` to perform a complex process such as "build" or "test". The builder code is defined in an npm package. For example, BrowserBuilder runs a webpack build for a browser target and KarmaBuilder starts the Karma server and runs a webpack build for unit tests.
 
    **[⬆ Back to Top](#table-of-contents)**
 
@@ -4563,3 +4593,8 @@ You can download the PDF and Epub version of this repository from the latest run
      During compile time, Angular CLI will download and inline the fonts that your application is using. This performance update speed up the first contentful paint(FCP) and this feature is enabled by default in apps built with version 11.
 
      **[⬆ Back to Top](#table-of-contents)**
+
+274. ### What is content projection?
+     Content projection is a pattern in which you insert, or project, the content you want to use inside another component.
+275. ### What is ng-content and its purpose?
+     The ng-content is used to insert the content dynamically inside the component that helps to increase component reusability. 
